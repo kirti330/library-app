@@ -1,0 +1,16 @@
+<h2>Register</h2>
+<input id="regName" placeholder="Name">
+<input id="regPhone" placeholder="Phone">
+<button onclick="register()">Register</button>
+<script>
+async function register() {
+  const name = document.getElementById('regName').value;
+  const phoneNumber = document.getElementById('regPhone').value;
+  await fetch('/register', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, phoneNumber })
+  });
+  alert('Registered! Now login.');
+  location.href = 'login.html';
+}
+</script>

@@ -1,0 +1,16 @@
+<h2>Login</h2>
+<input id="loginPhone" placeholder="Phone">
+<button onclick="login()">Login</button>
+<script>
+async function login() {
+  const phoneNumber = document.getElementById('loginPhone').value;
+  const res = await fetch('/login', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ phoneNumber })
+  });
+  if (res.ok) {
+    localStorage.setItem('phoneNumber', phoneNumber);
+    location.href = 'index.html';
+  } else alert('User not found');
+}
+</script>
