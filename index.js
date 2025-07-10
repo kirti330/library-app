@@ -5,7 +5,17 @@ mongoose.connect('mongodb://127.0.0.1:27017/library', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('✅ Connected to MongoDB successfully!'))
+.then(async () => {
+  console.log('✅ Connected to MongoDB successfully!');
+
+  // Optional test: count number of books
+  const count = await Book.countDocuments();
+  console.log('Total books in DB:', count);
+
+  // Also: show all borrowers
+  const borrowers = await Borrower.find({});
+  console.log('All Borrowers:', borrowers);
+})
 .catch(err => console.error('❌ Connection failed:', err));
 
 // Keep process running
@@ -17,10 +27,5 @@ process.on('SIGINT', () => {
 });
 
 // Import models
-const { Book, Borrower } = require('./models');
-
-// Optional test: count number of books
-Book.countDocuments().then(count => {
-  console.log('Total books in DB:', count);
-});
-
+const Book = require('./models/books');
+const Borrower = require('./models/borrower');
